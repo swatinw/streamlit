@@ -1,38 +1,25 @@
 import streamlit as st
-import pandas as pd
 from catboost import CatBoostRegressor
+import pandas as pd
 
-# Load the CatBoost model
-model = CatBoostRegressor()
-model.load_model("catboost_model.cbm")
+# Load the model safely
+@st.cache_resource
+def load_model():
+    model = CatBoostRegressor()
+    model.load_model("catboost_model.cbm", format="cbm")  # Explicitly set format
+    return model
 
-st.set_page_config(page_title="Product Rating Predictor", page_icon="📦")
-st.title("📦 Product Rating Predictor")
-st.write("Enter product details to predict the user rating.")
+model = load_model()
 
-# Input form
-with st.form("prediction_form"):
-    color = st.selectbox("Color", ['Red', 'Blue', 'Black', 'White'])  # Adjust based on training
-    product_name = st.text_input("Product Name")
-    category = st.selectbox("Category", ['Shoes', 'Clothing', 'Accessories'])
-    brand = st.selectbox("Brand", ['Nike', 'Adidas', 'Puma'])
-    user_id = st.text_input("User ID")
-    size = st.selectbox("Size", ['S', 'M', 'L', 'XL'])
-    price = st.text_input("Price", value="100")  # ✅ as string
+st.title("CatBoost Regression Predictor")
 
-    submit = st.form_submit_button("Predict")
+# Input fields (adjust to your features)
+feature_1 = st.number_input("Feature 1", value=0.0)
+feature_2 = st.number_input("Feature 2", value=0.0)
+feature_3 = st.number_input("Feature 3", value=0.0)
 
-# Prediction
-if submit:
-    input_df = pd.DataFrame([{
-        'Color': color,
-        'Product Name': product_name,
-        'Category': category,
-        'Brand': brand,
-        'User ID': user_id,
-        'Size': size,
-        'Price': price  # ✅ now a string
-    }])
-
+if st.button("Predict"):
+    input_df = pd.DataFrame([[feature_1, feature_2, feature_3]],
+                            columns=["feature_1", "feature_2", "feature_3"])
     prediction = model.predict(input_df)
-    st.success(f"⭐ Predicted Rating: **{prediction[0]:.2f}**")
+    st.success(f"Prediction: {prediction[0]:.2f}")
