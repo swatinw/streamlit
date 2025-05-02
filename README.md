@@ -25,7 +25,7 @@ Pandas (for data handling)
 To run this app locally:
 
 1. Clone this repository:
-git clone https://github.com/your-username/product-rating-predictor.git
+git clone https://github.com/swatinw/product-rating-predictor.git
 cd product-rating-predictor
 
 2. Install the dependencies:
