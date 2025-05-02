@@ -50,7 +50,7 @@ if submit:
         }])
 
         # ✅ Ensure correct column order
-        input_df = input_df[['Color', 'Product Name', 'Category', 'Brand', 'User ID', 'Size']]
+        input_df = input_df[['Color', 'Product Name', 'Category', 'Brand', 'User ID', 'Size', 'Price']]
 
         prediction = model.predict(input_df)
         st.success(f"⭐ Predicted Rating: **{prediction[0]:.2f}**")
