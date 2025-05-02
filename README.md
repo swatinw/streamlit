@@ -21,17 +21,7 @@ Pandas (for data handling)
 👉 Click here to try the app!
 (https://app-kvhehbbmkzeuwzd6vqkkpq.streamlit.app)
 
-🛠️ Installation
-To run this app locally:
-
-1. Clone this repository:
-git clone https://github.com/swatinw/product-rating-predictor.git
-cd product-rating-predictor
-
-2. Install the dependencies:
-pip install -r requirements.txt
-
-3. Run the Streamlit app:
+Run the Streamlit app:
 streamlit run app.py
 📂 Repository Structure
 
